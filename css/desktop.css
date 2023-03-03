@@ -1,0 +1,24 @@
+/**
+ * Author: Kate Tran
+ * CSS file for desktop design
+ */
+
+/* Icon Style */
+.icon {
+	position: absolute;
+	text-align: center;
+} 
+
+/* Icon Text Style */
+.icon-text {
+	font-size: small;
+	font-family: 'Levi Windows';
+}
+
+ /* Folder Style */
+ .folder {
+	background-image: url( './images/windows98Folder.png' );
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
