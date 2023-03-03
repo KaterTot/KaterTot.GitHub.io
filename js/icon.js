@@ -29,7 +29,10 @@ function makeDesktopIcon( imageClass, title ) {
     icon.appendChild( iconImage );
     icon.appendChild( lb )
     icon.appendChild( iconName );
-    document.body.appendChild(icon);
+    //document.body.appendChild(icon);
+
+    // Return
+    return icon;
 
 }
 

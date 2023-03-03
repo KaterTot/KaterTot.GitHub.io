@@ -9,10 +9,18 @@
         </script>
     </head>
     
-    <body></body>
+    <body>
+        <div id="wallpaper">
+            <img/>
+        </div>
+    </body>
 
     <script>
-        makeDesktopIcon( "folder", "Projects" );
+        // Make Projects Folder
+        var projects = makeDesktopIcon( "folder", "Projects" );
+
+        //Append
+        document.getElementById( "wallpaper" ).append( projects );
     </script>
 
 </html>
