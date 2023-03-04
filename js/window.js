@@ -4,16 +4,19 @@
  */
 
 // Make Window
-function desktopWindow( image, title ) {
+function desktopWindow( image, title, path ) {
 
     // Create new window container div element
     var windowContainer = document.createElement( "div" );
-        windowContainer.className = "window";
+        windowContainer.className = "window container";
 
+    // Obtain file count
+    var count = 0;
+    
     // Append Window Container
     windowContainer.append( header( image, title ) );
-    windowContainer.append( body() );
-    //windowContainer.append( footer() );
+    windowContainer.append( body( path ) );
+    windowContainer.append( footer( count ) );
 
     // Return
     return windowContainer;
@@ -32,7 +35,7 @@ function header( image, title ) {
     
     // Create new headerImage image
     var headerImage = document.createElement( "img" );
-        headerImage.className = 'windowIcon';
+        headerImage.className = 'windowIcon container';
         headerImage.style.backgroundImage = image;
     
     // Create new header path
@@ -42,7 +45,7 @@ function header( image, title ) {
 
     // Create new control panel div element
     var controlPanel = document.createElement( "div" );
-        controlPanel.className = "controlPanel";
+        controlPanel.className = "controlPanel container";
 
     // Create minimize button
     var minimize = document.createElement( "button" );
@@ -78,7 +81,7 @@ function body() {
 
     // Create new body div element
     var body = document.createElement( "div" );
-        //header.className = "icon";
+        body.className = "windowBody container";
     
     // Traverse path
     // for ( file.name in path ) {
@@ -99,7 +102,7 @@ function footer( count ) {
 
     // Create new footer div element
     var footer = document.createElement( "div" );
-        //footer.className = "icon";
+        footer.className = "container footer";
     
     // Create new count div element
     var countContainer = document.createElement( "div" );

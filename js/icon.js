@@ -4,7 +4,10 @@
  */
 
 // Make Desktop Icon
-function desktopIcon( title ) {
+function desktopIcon( path ) {
+
+    //Get File Name
+    var title = path.substring( path.lastIndexOf('/') + 1);
 
     // Create new icon div element
     var icon = document.createElement( "div" );
@@ -28,7 +31,7 @@ function desktopIcon( title ) {
     var iconTitle = document.createTextNode( title );
 
     // Add event listener
-    icon.addEventListener( 'click', document.body.appendChild( desktopWindow( image, title ) ) );
+    icon.addEventListener( 'click', document.body.appendChild( desktopWindow( image, title, "./projects" ) ) );
 
     // Append
     iconName.appendChild( iconTitle );

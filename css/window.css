@@ -14,18 +14,22 @@
 	background-color: white;
 }
 
+/* Window Container Style */
+.container {
+	margin: 10px;
+}
+
 /* Window Icon Style */
 .windowIcon {
 	background-size: cover;
 	width: 20px;
 	height: 20px;
-	margin: 10px;
 }
 
 /* Header Style */
 .header {
 	display: flex;
-	position: absolute;
+	position: relative;
 	text-align: center;
 	width: 100%;
 }
@@ -43,10 +47,19 @@
 
 /* Control Panel Style */
 .controlPanel {
-	margin: 10px;
 	margin-left: auto;
 }
 
+/* Window Body Style */
+.windowBody {
+	position: relative;
+	border: 2px solid black;
+	width: auto;
+	height: 80%;
+}
 
-
-
+/* Footer Style*/
+.footer {
+	border: 2px solid black;
+	width: fit-content;
+}
