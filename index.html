@@ -5,22 +5,22 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/desktop.css">
-        <script type="text/javascript" src="./js/icon.js">
-        </script>
+        <link rel="stylesheet" href="./css/window.css">
+        <script type="text/javascript" src="./js/icon.js"></script>
+        <script type="text/javascript" src="./js/window.js"></script>
     </head>
     
-    <body>
-        <div id="wallpaper">
-            <img/>
-        </div>
-    </body>
+    <body id="wallpaper"></body>
 
     <script>
         // Make Projects Folder
-        var projects = makeDesktopIcon( "folder", "Projects" );
+        var projects = desktopIcon( "Projects" );
 
-        //Append
-        document.getElementById( "wallpaper" ).append( projects );
+        // Define desktop
+        var desktop = document.getElementById( "wallpaper" );
+
+        // Append
+        desktop.append( projects );
     </script>
 
 </html>

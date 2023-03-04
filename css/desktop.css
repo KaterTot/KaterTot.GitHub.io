@@ -5,7 +5,7 @@
 
 /* Wallpaper Style */
 #wallpaper {
-	background-image: url('./images/wallpaper.jpg');
+	background-image: url('./wallpapers/wallpaper.jpg');
 	background-size: cover;
 	margin: 0px;
 	height: 100vh;
@@ -16,18 +16,18 @@
 .icon {
 	position: absolute;
 	text-align: center;
+	margin: 15px;
 } 
 
 /* Icon Text Style */
 .icon-text {
-	font-size: small;
+	font-size: medium;
 	font-family: 'Levi Windows';
 }
 
 /* Folder Style */
 .folder {
-	background-image: url( './images/windows98Folder.png' );
 	background-size: cover;
-	width: 48px;
-	height: 48px;
+	width: 60px;
+	height: 60px;
 }

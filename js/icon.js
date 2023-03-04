@@ -4,7 +4,7 @@
  */
 
 // Make Desktop Icon
-function makeDesktopIcon( imageClass, title ) {
+function desktopIcon( title ) {
 
     // Create new icon div element
     var icon = document.createElement( "div" );
@@ -12,7 +12,10 @@ function makeDesktopIcon( imageClass, title ) {
 
     // Create new icon image
     var iconImage = document.createElement( "img" );
-        iconImage.className = imageClass;
+        iconImage.className = 'folder';
+    
+    // Create image    
+    var image = iconImage.style.backgroundImage = "url('./images/openFolder.png')";
     
     // Create lineBreak
     var lb = document.createElement( "br" );
@@ -24,12 +27,14 @@ function makeDesktopIcon( imageClass, title ) {
     // Create new icon title
     var iconTitle = document.createTextNode( title );
 
+    // Add event listener
+    icon.addEventListener( 'click', document.body.appendChild( desktopWindow( image, title ) ) );
+
     // Append
     iconName.appendChild( iconTitle );
     icon.appendChild( iconImage );
     icon.appendChild( lb )
     icon.appendChild( iconName );
-    //document.body.appendChild(icon);
 
     // Return
     return icon;
