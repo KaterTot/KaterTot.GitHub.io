@@ -12,7 +12,7 @@ function desktopWindow( image, title ) {
 
     // Append Window Container
     windowContainer.append( header( image, title ) );
-    //windowContainer.append( body() );
+    windowContainer.append( body() );
     //windowContainer.append( footer() );
 
     // Return
@@ -41,18 +41,33 @@ function header( image, title ) {
         headerPath.className = "headerPath";
 
     // Create new control panel div element
-    //var controlPanel = document.createElement( "div" );
-        //controlPanel.className = "icon";
+    var controlPanel = document.createElement( "div" );
+        controlPanel.className = "controlPanel";
+
+    // Create minimize button
+    var minimize = document.createElement( "button" );
+        minimize.append( document.createTextNode( "_" ) );
+
+    // Create re-size button
+    var resize = document.createElement( "button" );
+        resize.append( document.createTextNode( "[]" ) );
+
+    // Create close button
+    var close = document.createElement( "button" );
+        close.append( document.createTextNode( "X" ) );
 
     // Append HeaderTitle
     headerTitle.append( headerImage );
     headerTitle.append( headerPath );
 
     // Append Control Panel
+    controlPanel.append( minimize );
+    controlPanel.append( resize );
+    controlPanel.append( close );
 
     // Append Header
     header.append( headerTitle );
-    //header.append( controlPanel );
+    header.append( controlPanel );
 
     // Return
     return header;
