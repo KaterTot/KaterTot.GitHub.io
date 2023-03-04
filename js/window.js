@@ -18,6 +18,9 @@ function desktopWindow( image, title, path ) {
     windowContainer.append( body( path ) );
     windowContainer.append( footer( count ) );
 
+    // Make window draggable
+    //dragWindow( windowContainer );
+
     // Return
     return windowContainer;
 }
@@ -78,12 +81,16 @@ function header( parent, image, title ) {
 }
 
 // Make Body
-function body() {
+function body( path ) {
 
     // Create new body div element
     var body = document.createElement( "div" );
         body.className = "windowBody container";
     
+    // Define File
+    var file = loadFile( path );
+    console.log( "file: ", file );
+    return;
     // Traverse path
     // for ( file.name in path ) {
 
@@ -122,3 +129,59 @@ function footer( count ) {
     // Return
     return footer;
 }
+
+// Drag Window
+function dragWindow( window ) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(window.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(window.id + "header").onmousedown = dragMouseDown;
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        window.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+
+        function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        window.style.top = (window.offsetTop - pos2) + "px";
+        window.style.left = (window.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+
+
+// Read file from webserver with ajax
+function loadFile(filePath) {
+    var result = null;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", filePath, false);
+    xmlhttp.send();
+    if (xmlhttp.status==200) {
+      result = xmlhttp.responseText;
+    }
+    return result;
+  }
