@@ -31,7 +31,7 @@ function desktopIcon( path ) {
     var iconTitle = document.createTextNode( title );
 
     // Add event listener
-    icon.addEventListener( 'click', document.body.appendChild( desktopWindow( image, title, "./projects" ) ) );
+    icon.ondblclick = function() { document.body.appendChild( desktopWindow( image, title, "./projects" ) ); };
 
     // Append
     iconName.appendChild( iconTitle );

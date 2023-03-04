@@ -14,7 +14,7 @@ function desktopWindow( image, title, path ) {
     var count = 0;
     
     // Append Window Container
-    windowContainer.append( header( image, title ) );
+    windowContainer.append( header( windowContainer, image, title ) );
     windowContainer.append( body( path ) );
     windowContainer.append( footer( count ) );
 
@@ -23,7 +23,7 @@ function desktopWindow( image, title, path ) {
 }
 
 // Make Header
-function header( image, title ) {
+function header( parent, image, title ) {
 
     // Create new header div element
     var header = document.createElement( "div" );
@@ -58,6 +58,7 @@ function header( image, title ) {
     // Create close button
     var close = document.createElement( "button" );
         close.append( document.createTextNode( "X" ) );
+        close.onclick = function() { parent.remove(); };
 
     // Append HeaderTitle
     headerTitle.append( headerImage );
