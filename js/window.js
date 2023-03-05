@@ -90,17 +90,18 @@ function body( path ) {
     // Define File
     var file = loadFile( path );
 
-    console.log( 'file: ', file );
+    // Remove first two (., ..) files
+    file = file.slice( 2, file.length );
 
     // Traverse path
-    // for ( file.name in path ) {
+    for ( f of file ) {
 
-    //     // Create icon
-    //     var project = icon( 'folder', file );
+        // Create icon
+        var project = desktopIcon( f );
 
-    //     // Append body
-    //     body.append( project );
-    // }
+        // Append body
+        body.append( project );
+    }
 
     // Return
     return body;
