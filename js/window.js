@@ -89,8 +89,7 @@ function body( path ) {
     
     // Define File
     var file = loadFile( path );
-    console.log( "file: ", file );
-    return;
+    
     // Traverse path
     // for ( file.name in path ) {
 
@@ -187,15 +186,11 @@ function loadFile( filePath ) {
         dataType: 'json',
         data: { arguments: filePath },
     
-        success: function (obj, textstatus) {
-            if( !('error' in obj) ) {
-                files = obj.result;
-            }
-            else {
-                console.log( obj.error );
-            }
+        success: function ( data ) {
+            console.log('data: ', data );
+            files = data;
         }
     });
-
+    console.log( "file: ", files );
     return files;
 }
