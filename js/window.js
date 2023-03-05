@@ -175,13 +175,30 @@ function dragWindow( window ) {
 
 
 // Read file from webserver with ajax
-function loadFile(filePath) {
+function loadFile( filePath ) {
+
+    // Define result
     var result = null;
+
+    // Create request to pull from server
     var xmlhttp = new XMLHttpRequest();
+
+    // Open file
     xmlhttp.open("GET", filePath, false);
-    xmlhttp.send();
-    if (xmlhttp.status==200 || xmlhttp.status==0) {
-      result = xmlhttp.responseText;
+
+    // Send results
+    xmlhttp.send( null );
+
+    //
+    var ret = xmlhttp.responseText;
+    result = ret.split('\n');
+    console.log( 'fileList: ', fileList );
+    for (i = 0; i < result.length; i++) {
+        var fileinfo = result[i].split(' ');
+        if (fileinfo[0] == '201:') {
+            document.write(fileinfo[1] + "<br>");
+            document.write('<img src=\"' + directory + fileinfo[1] + '\"/>');
+        }
     }
     return result;
   }
