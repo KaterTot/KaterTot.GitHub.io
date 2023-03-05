@@ -89,7 +89,9 @@ function body( path ) {
     
     // Define File
     var file = loadFile( path );
-    
+
+    console.log( 'file: ', file );
+
     // Traverse path
     // for ( file.name in path ) {
 
@@ -180,17 +182,16 @@ function loadFile( filePath ) {
     var files = null;
 
     // Pass arguments to PHP
-    jQuery.ajax({
-        type: "POST",
+    $.ajax({
+        type: 'POST',
         url: './windowBody.php',
-        dataType: 'json',
-        data: { arguments: filePath },
-    
-        success: function ( data ) {
-            console.log('data: ', data );
-            files = data;
-        }
+        data: { path: filePath },
+        async: false,
+        success: function( data ) { files = data; }
     });
-    console.log( "file: ", files );
+    
+    // Return
     return files;
 }
+
+/*https://cdn.jsdelivr.net/gh/KaterTot/katertot.github.io/projects/*/
