@@ -89,7 +89,8 @@ function body( path ) {
     
     // Define File
     var file = loadFile( path );
-
+    console.log( "file: ", file );
+    return;
     // Traverse path
     // for ( file.name in path ) {
 
@@ -176,28 +177,25 @@ function dragWindow( window ) {
 // Read file from webserver with ajax
 function loadFile( filePath ) {
 
-    // Define result
-    var result = null;
+    // Define files;
+    var files = null;
 
-    // Create request to pull from server
-    var xmlhttp = new XMLHttpRequest();
-
-    // Open file
-    xmlhttp.open("GET", filePath, false);
-
-    // Send results
-    xmlhttp.send( null );
-
-    //
-    var ret = xmlhttp.responseText;
-    result = ret.split('\n');
-    console.log( 'result: ', result );
-    for (i = 0; i < result.length; i++) {
-        var fileinfo = result[i].split(' ');
-        if (fileinfo[0] == '201:') {
-            document.write(fileinfo[1] + "<br>");
-            document.write('<img src=\"' + directory + fileinfo[1] + '\"/>');
+    // Pass arguments to PHP
+    jQuery.ajax({
+        type: "POST",
+        url: './windowBody.php',
+        dataType: 'json',
+        data: { arguments: filePath },
+    
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                files = obj.result;
+            }
+            else {
+                console.log( obj.error );
+            }
         }
-    }
-    return result;
-  }
+    });
+
+    return files;
+}
