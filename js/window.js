@@ -89,8 +89,7 @@ function body( path ) {
     
     // Define File
     var file = loadFile( path );
-    console.log( "file: ", file );
-    return;
+
     // Traverse path
     // for ( file.name in path ) {
 
@@ -192,7 +191,7 @@ function loadFile( filePath ) {
     //
     var ret = xmlhttp.responseText;
     result = ret.split('\n');
-    console.log( 'fileList: ', fileList );
+    console.log( 'result: ', result );
     for (i = 0; i < result.length; i++) {
         var fileinfo = result[i].split(' ');
         if (fileinfo[0] == '201:') {
