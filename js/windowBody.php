@@ -5,14 +5,11 @@
     // Define Array
     $arrFiles = array();
 
-    // If no arguments, throw error
-    if( !isset( $_POST[ 'arguments' ] ) ) { $arrFiles[ 'error' ] = 'No function arguments!'; }
-
     // If succeed
-    if( !isset($aResult['error']) ) {
+    if( isset( $_POST[ 'path' ] ) ) {
         
         // Define directory
-        $dir = $_POST[ 'arguments' ];
+        $dir = $_POST[ 'path' ];
 
         // Open directory
         $handle = opendir( $dir );
@@ -32,6 +29,6 @@
         closedir( $handle );
     }
 
-    // Return
-    echo json_encode( $arrFiles[] );
+    //Return
+    echo json_encode( $arrFiles );
 ?>
