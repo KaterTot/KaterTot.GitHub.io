@@ -4,11 +4,11 @@
  */
 
 // Make Desktop Icon
-function desktopIcon( path, image ) {
-
+function desktopIcon( file ) {
+  
     //Get File Name
-    var title = path.substring( path.lastIndexOf('/') + 1);
-
+    file.name = file.path.substring( file.path.lastIndexOf('/') + 1);
+    
     // Create new icon div element
     var icon = document.createElement( "div" );
         icon.className = "icon";
@@ -16,7 +16,7 @@ function desktopIcon( path, image ) {
     // Create new icon image
     var iconImage = document.createElement( "img" );
         iconImage.className = 'folder';
-        iconImage.style.backgroundImage = image;
+        iconImage.style.backgroundImage = file.image;
     
     // Create lineBreak
     var lb = document.createElement( "br" );
@@ -26,10 +26,27 @@ function desktopIcon( path, image ) {
         iconName.className = "icon-text";
 
     // Create new icon title
-    var iconTitle = document.createTextNode( title );
+    var iconTitle = document.createTextNode( file.name );
 
     // Add event listener
-    icon.ondblclick = function() { document.body.appendChild( desktopWindow( image, title, "./projects" ) ); };
+    /*icon.ondblclick = function( file ) { 
+        console.log( "file: ", file )
+        // Open Desktop Window Popup
+        document.body.appendChild( desktopWindow( file ) ); 
+
+        // Create taskbar item
+    };*/
+
+    // Add event listener
+    icon.addEventListener( "dblclick", function() {
+        
+        // Open Desktop Window Popup
+        document.body.appendChild( desktopWindow( file ) ); 
+
+        // Create taskbar item in tabsdiv
+        file.taskBar.querySelector( '.tabsDiv' ).appendChild( taskWindow( file ) );
+
+    }.bind( file ) );
 
     // Append
     iconName.appendChild( iconTitle );
@@ -40,40 +57,4 @@ function desktopIcon( path, image ) {
     // Return
     return icon;
 
-}
-
-
-// Make TaskBar
-function taskBar() {
-
-    // Create task bar div
-    var taskBar = document.createElement( "div" );
-        taskBar.className = "taskBar";
-
-    // Create start button
-    var startMenu = document.createElement( "button" );
-        startMenu.innerText = "Start";
-        startMenu.className = "startMenu";
-
-    
-    // Create tabs div
-    var tabsDiv = document.createElement( "div" );
-
-    // Create time div
-    var timeDiv = document.createElement( "div" );
-        timeDiv.className = "timeDiv";
-
-    // Get local time
-    var currentTime = new Date();
-    
-    // Add to timeDiv
-    timeDiv.innerText = currentTime.toLocaleString( 'en-US', { hour: 'numeric', minute: 'numeric', hour12: true } );
-
-    // Append
-    taskBar.appendChild( startMenu );
-    taskBar.appendChild( tabsDiv );
-    taskBar.appendChild( timeDiv );
-    
-    // Return
-    return taskBar;
 }

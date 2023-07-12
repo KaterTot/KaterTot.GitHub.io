@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="./css/window.css">
         <script type="text/javascript" src="./js/desktop.js"></script>
         <script type="text/javascript" src="./js/window.js"></script>
+        <script type="text/javascript" src="./js/taskBar.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     </head>
     
@@ -15,11 +16,14 @@
 
     <script>
 
-        // Make Projects Folder
-        var projects = desktopIcon( "./projects", "url('./images/openFolder.png')" );
-
         // Make TaskBar
         var taskBar = taskBar();
+
+        // Define File Object
+        var projectsFile = { name: "", path: "./projects", image: "url('./images/openFolder.png')", taskBar: taskBar };
+
+        // Make Projects Folder
+        var projects = desktopIcon( projectsFile );
 
         // Define desktop
         var desktop = document.getElementById( "wallpaper" );

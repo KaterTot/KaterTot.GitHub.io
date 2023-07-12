@@ -67,3 +67,12 @@
 	justify-content: center;
 	align-items: center;
 }
+
+.taskBarPopUp {
+	background-color: rgb( 191, 184, 191 );
+	border-top: 2px solid rgb( 127, 120, 127 );
+	border-left: 2px solid rgb( 127, 120, 127 );
+	border-bottom: 2px solid rgb( 247, 240, 247 );
+	border-right: 2px solid rgb( 247, 240, 247 );
+	height: 85%;
+}

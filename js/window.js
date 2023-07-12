@@ -4,22 +4,19 @@
  */
 
 // Make Window
-function desktopWindow( image, title, path ) {
-
+function desktopWindow( file ) {
+  
     // Create new window container div element
     var windowContainer = document.createElement( "div" );
         windowContainer.className = "window container";
-
-    // Obtain file count
-    var count = 0;
     
-    // Create file object
-    var file = getFiles( path );
-    console.log( "image: ", image );
+    // Pulling files from computer
+    var compFiles = getFiles( file.path );
+
     // Append Window Container
-    windowContainer.append( header( windowContainer, image, title ) );
-    windowContainer.append( body( file ) );
-    windowContainer.append( footer( file.length ) );
+    windowContainer.append( header( windowContainer, file ) );
+    windowContainer.append( body( compFiles, file ) );
+    windowContainer.append( footer( compFiles.length ) );
 
     // Make window draggable
     //dragWindow( windowContainer );
@@ -29,7 +26,7 @@ function desktopWindow( image, title, path ) {
 }
 
 // Make Header
-function header( parent, image, title ) {
+function header( parent, file ) {
 
     // Create new header div element
     var header = document.createElement( "div" );
@@ -42,11 +39,11 @@ function header( parent, image, title ) {
     // Create new headerImage image
     var headerImage = document.createElement( "img" );
         headerImage.className = 'windowIcon container';
-        headerImage.style.backgroundImage = image;
+        headerImage.style.backgroundImage = file.image;
     
     // Create new header path
     var headerPath = document.createElement( "div" );
-        headerPath.append( document.createTextNode( "C:\\" + title ) );
+        headerPath.append( document.createTextNode( "C:\\" + file.name ) );
         headerPath.className = "headerPath";
 
     // Create new control panel div element
@@ -64,7 +61,14 @@ function header( parent, image, title ) {
     // Create close button
     var close = document.createElement( "button" );
         close.append( document.createTextNode( "X" ) );
-        close.onclick = function() { parent.remove(); };
+        close.onclick = function() { 
+
+            // Remove Window
+            parent.remove();
+
+            // Remove TaskBar Pop Up
+            file.taskBar.querySelector( "#" + file.name ).remove();
+        };
 
     // Append HeaderTitle
     headerTitle.append( headerImage );
@@ -95,9 +99,16 @@ function body( file ) {
 
         // Get File Type, convert to image
         //var image = getFileType( f );
+        
+        // Create Path String
+        var path = "./" + f;
+        console.log("path: ", path)
+
+        // Create fileObj
+        var fileObj = { name: "", path: path, image: "url('./images/openFolder.png')"};
 
         // Create icon
-        var project = desktopIcon( f, /*images*/ "url('./images/openFolder.png')" );
+        var project = desktopIcon( fileObj );
 
         // Append body
         body.append( project );
@@ -175,12 +186,12 @@ function dragWindow( window ) {
     }
 }
 
-
+// ISSUE HERE, AFTER CLICKING INTO SECOND LAYER, DOES NOT READ FURTHER
 // Read file from webserver with ajax
 function loadFile( filePath ) {
 
     // Define files;
-    var files = null;
+    var files = [];
 
     // Pass arguments to PHP
     $.ajax({
