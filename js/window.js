@@ -13,10 +13,13 @@ function desktopWindow( image, title, path ) {
     // Obtain file count
     var count = 0;
     
+    // Create file object
+    var file = getFiles( path );
+    console.log( "image: ", image );
     // Append Window Container
     windowContainer.append( header( windowContainer, image, title ) );
-    windowContainer.append( body( path ) );
-    windowContainer.append( footer( count ) );
+    windowContainer.append( body( file ) );
+    windowContainer.append( footer( file.length ) );
 
     // Make window draggable
     //dragWindow( windowContainer );
@@ -81,23 +84,20 @@ function header( parent, image, title ) {
 }
 
 // Make Body
-function body( path ) {
+function body( file ) {
 
     // Create new body div element
     var body = document.createElement( "div" );
         body.className = "windowBody container";
     
-    // Define File
-    var file = loadFile( path );
-
-    // Remove first two (., ..) files
-    file = file.slice( 2, file.length );
-
     // Traverse path
     for ( f of file ) {
 
+        // Get File Type, convert to image
+        //var image = getFileType( f );
+
         // Create icon
-        var project = desktopIcon( f );
+        var project = desktopIcon( f, /*images*/ "url('./images/openFolder.png')" );
 
         // Append body
         body.append( project );
@@ -193,6 +193,19 @@ function loadFile( filePath ) {
     
     // Return
     return files;
+}
+
+// Iterate through path
+function getFiles( path ) {
+    
+    // Define File
+    var file = loadFile( path );
+
+    // Remove first two (., ..) files
+    file = file.slice( 2, file.length );
+
+    // Return
+    return file;
 }
 
 /*https://cdn.jsdelivr.net/gh/KaterTot/katertot.github.io/projects/*/
