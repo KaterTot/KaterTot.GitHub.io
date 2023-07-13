@@ -14,9 +14,10 @@
 
 /* Icon Style */
 .icon {
-	position: absolute;
+	position: relative;
 	text-align: center;
 	margin: 1%;
+	float: left;
 } 
 
 /* Icon Text Style */
