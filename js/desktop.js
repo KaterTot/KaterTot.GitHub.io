@@ -241,7 +241,6 @@ function dragWindow( window ) {
     }
 }
 
-// ISSUE HERE, AFTER CLICKING INTO SECOND LAYER, DOES NOT READ FURTHER
 // Read file from webserver with ajax
 function loadFile( filePath ) {
 
