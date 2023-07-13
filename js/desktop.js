@@ -44,7 +44,7 @@ function desktopIcon( file ) {
         document.body.appendChild( desktopWindow( file ) ); 
 
         // Create taskbar item in tabsdiv
-        file.taskBar.querySelector( '.tabsDiv' ).appendChild( taskWindow( file ) );
+        document.querySelector( '.tabsDiv' ).appendChild( taskWindow( file ) );
 
     }.bind( file ) );
 
@@ -61,7 +61,7 @@ function desktopIcon( file ) {
 
 // Make Window
 function desktopWindow( file ) {
-  
+    
     // Create new window container div element
     var windowContainer = document.createElement( "div" );
         windowContainer.className = "window container";
@@ -76,7 +76,7 @@ function desktopWindow( file ) {
 
     // Make window draggable
     //dragWindow( windowContainer );
-
+    
     // Return
     return windowContainer;
 }
@@ -123,7 +123,7 @@ function header( parent, file ) {
             parent.remove();
 
             // Remove TaskBar Pop Up
-            file.taskBar.querySelector( "#" + file.name ).remove();
+            document.querySelector( "#" + file.name ).remove();
         };
 
     // Append HeaderTitle
@@ -144,20 +144,20 @@ function header( parent, file ) {
 }
 
 // Make Body
-function body( file ) {
+function body( compFiles, file ) {
 
     // Create new body div element
     var body = document.createElement( "div" );
         body.className = "windowBody container";
     
     // Traverse path
-    for ( f of file ) {
+    for ( f of compFiles ) {
 
         // Get File Type, convert to image
         //var image = getFileType( f );
         
         // Create Path String
-        var path = "./" + f;
+        var path = file.path + "/" + f;
 
         // Create fileObj
         var fileObj = { name: "", path: path, image: "url('./images/openFolder.png')"};
@@ -254,7 +254,8 @@ function loadFile( filePath ) {
         url: './windowBody.php',
         data: { path: filePath },
         async: false,
-        success: function( data ) { files = data; }
+        success: function( data ) { files = data; },
+        error: function( data ) { console.log("fail: ", data);}
     });
     
     // Return
@@ -266,7 +267,7 @@ function getFiles( path ) {
     
     // Define File
     var file = loadFile( path );
-
+    
     // Remove first two (., ..) files
     file = file.slice( 2, file.length );
 

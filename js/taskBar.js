@@ -41,7 +41,7 @@ function taskBar() {
 
 // Make Task Window (The pop up on task bar)
 function taskWindow( file ) {
-
+    
     // Create window div
     var window = document.createElement( "div" );
         window.className = "taskBarPopUp";

@@ -77,3 +77,9 @@
 	border-right: 2px solid rgb( 247, 240, 247 );
 	height: 85%;
 }
+
+.tabsDiv {
+	position: relative;
+	text-align: center;
+	float: left;
+}
