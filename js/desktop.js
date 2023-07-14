@@ -40,11 +40,24 @@ function desktopIcon( file ) {
     // Add event listener
     icon.addEventListener( "dblclick", function() {
         
+        // Check if file or Directory - get an error bc cannot opendir of a txt file
+
         // Open Desktop Window Popup
-        document.body.appendChild( desktopWindow( file ) ); 
+        var appWindow = document.body.appendChild( desktopWindow( file ) ); 
 
         // Create taskbar item in tabsdiv
-        document.querySelector( '.tabsDiv' ).appendChild( taskWindow( file ) );
+        var taskBarButton = document.querySelector( '.tabsDiv' ).appendChild( taskWindow( file ) );
+
+        // Add event listener
+        taskBarButton.addEventListener( "click", function() {
+
+            // Bring window to front or minimize
+            if ( appWindow.style.display === "none" ) appWindow.style.display = "block";
+            else appWindow.style.display = "none";
+
+            // CSS for taskBarButton
+
+        }.bind( appWindow ) );
 
     }.bind( file ) );
 
@@ -109,6 +122,11 @@ function header( parent, file ) {
     // Create minimize button
     var minimize = document.createElement( "button" );
         minimize.append( document.createTextNode( "_" ) );
+        minimize.onclick = function() {
+
+            // Minimize Window
+            parent.style.display = "none";
+        };
 
     // Create re-size button
     var resize = document.createElement( "button" );
