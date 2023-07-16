@@ -6,8 +6,10 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/desktop.css">
         <link rel="stylesheet" href="./css/window.css">
+        <link rel="stylesheet" href="./css/projectWindow.css">
         <script type="text/javascript" src="./js/desktop.js"></script>
         <script type="text/javascript" src="./js/taskBar.js"></script>
+        <script type="text/javascript" src="./js/projectWindow.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     </head>
     
@@ -26,6 +28,10 @@
 
         // Define desktop
         var desktop = document.getElementById( "wallpaper" );
+
+        // TESTING PURPOSES
+        var pw = projectWindow( projectsFile );
+        desktop.append( pw );
 
         // Append
         desktop.append( projects );

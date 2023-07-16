@@ -29,15 +29,6 @@ function desktopIcon( file ) {
     var iconTitle = document.createTextNode( file.name );
 
     // Add event listener
-    /*icon.ondblclick = function( file ) { 
-        console.log( "file: ", file )
-        // Open Desktop Window Popup
-        document.body.appendChild( desktopWindow( file ) ); 
-
-        // Create taskbar item
-    };*/
-
-    // Add event listener
     icon.addEventListener( "dblclick", function() {
         
         // Check if file or Directory - get an error bc cannot opendir of a txt file
@@ -51,11 +42,24 @@ function desktopIcon( file ) {
         // Add event listener
         taskBarButton.addEventListener( "click", function() {
 
-            // Bring window to front or minimize
-            if ( appWindow.style.display === "none" ) appWindow.style.display = "block";
-            else appWindow.style.display = "none";
+            // If window hidden
+            if ( appWindow.style.display === "none" ) {
+                
+                // Bring window to front
+                appWindow.style.display = "block";
 
-            // CSS for taskBarButton
+                // Change styling for taskBarButton
+                //taskBarButton.className = "tabsDiv";
+            }
+            else {
+
+                // Hide window
+                appWindow.style.display = "none"; 
+
+                // Change styling for taskBarButton
+                //taskBarButton.className = "startMenu";
+            }
+
 
         }.bind( appWindow ) );
 
@@ -86,9 +90,6 @@ function desktopWindow( file ) {
     windowContainer.append( header( windowContainer, file ) );
     windowContainer.append( body( compFiles, file ) );
     windowContainer.append( footer( compFiles.length ) );
-
-    // Make window draggable
-    //dragWindow( windowContainer );
     
     // Return
     return windowContainer;
@@ -156,6 +157,9 @@ function header( parent, file ) {
     // Append Header
     header.append( headerTitle );
     header.append( controlPanel );
+
+    // Make window draggable
+    //header.ondrag = function() { dragWindow( parent ) };
 
     // Return
     return header;
