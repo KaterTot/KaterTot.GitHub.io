@@ -32,6 +32,9 @@ function desktopIcon( file ) {
     // Add event listener
     icon.addEventListener( "dblclick", function() {
        
+        // Define appWindow
+        var appWindow = null;
+        
         // If folder is a project file
         if ( icon.id == "project" ) {
 
@@ -39,14 +42,14 @@ function desktopIcon( file ) {
             projectWindow( file ).then( function (result ) {
                 
                 // Open Project Window Popup
-                document.body.appendChild( result );
+                appWindow = document.body.appendChild( result );
             })
         }
         // If folder is a regular file
         else {
             
             // Open Desktop Window Popup
-            var appWindow = document.body.appendChild( desktopWindow( file ) );
+            appWindow = document.body.appendChild( desktopWindow( file ) );
         }
 
         // Create taskbar item in tabsdiv

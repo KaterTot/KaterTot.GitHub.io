@@ -118,21 +118,24 @@ img { vertical-align: middle; }
 
 /* Code Container */
 .code-container {
-	overflow	: auto;
+	overflow	: hidden;
 	overflow-x	: hidden;
 	white-space : pre-wrap;
 	max-height	: 100%;
+	max-width	: 100%;
 }
 
 /* Code Editor */
 .code-editor {
-	height	: 100%;
-	width	: 100%;
+	height		: calc( 100% - 41px );
+	width		: 100%;
+	padding		: 0px;
+	overflow-y	:auto;
+	resize		: none;
 }
 
 /* Code Mirror */
 .CodeMirror {
-	overflow-y	: auto;
 	overflow-x	: hidden;
 }
 
@@ -143,9 +146,9 @@ img { vertical-align: middle; }
 }
 
 .tab {
-    padding: 10px 20px;
-    cursor: pointer;
-    border-right: 1px solid #ccc;
+    padding			: 10px 20px;
+    cursor			: pointer;
+    border-right	: 1px solid #ccc;
 }
 
 .tab:last-child {
