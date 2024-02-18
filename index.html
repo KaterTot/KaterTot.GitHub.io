@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="./css/desktop.css">
         <link rel="stylesheet" href="./css/window.css">
         <link rel="stylesheet" href="./css/projectWindow.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
         <script type="text/javascript" src="./js/desktop.js"></script>
         <script type="text/javascript" src="./js/taskBar.js"></script>
         <script type="text/javascript" src="./js/projectWindow.js"></script>
@@ -29,9 +32,29 @@
         // Define desktop
         var desktop = document.getElementById( "wallpaper" );
 
-        // TESTING PURPOSES
-        var pw = projectWindow( projectsFile );
-        desktop.append( pw );
+        // TESTING PURPOSES =======================================================================
+        
+        //Define Projects List
+        var projs = getFiles( projectsFile.path );
+
+        // loop through projects
+        for ( proj of projs ) {
+            
+            // Define project file path
+            var projPath = projectsFile.path + "/" + proj;
+
+            // Define Project
+            var project = { name: "", path: projPath, image: "url('./images/openFolder.png')" };
+            
+            //Create Project Window
+            var pw = projectWindow( project );
+            desktop.append( pw );
+        }
+        
+        //var pw = projectWindow( projectsFile );
+        //desktop.append( pw );
+
+        // TESTING PURPOSES =======================================================================
 
         // Append
         desktop.append( projects );

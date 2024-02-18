@@ -10,20 +10,20 @@ function desktopIcon( file ) {
     file.name = file.path.substring( file.path.lastIndexOf('/') + 1);
     
     // Create new icon div element
-    var icon = document.createElement( "div" );
-        icon.className = "icon";
+    var icon            = document.createElement( "div" );
+        icon.className  = "icon";
 
     // Create new icon image
-    var iconImage = document.createElement( "img" );
-        iconImage.className = 'folder';
+    var iconImage                       = document.createElement( "img" );
+        iconImage.className             = 'folder';
         iconImage.style.backgroundImage = file.image;
     
     // Create lineBreak
     var lb = document.createElement( "br" );
 
     // Create new icon name
-    var iconName = document.createElement( "span" );
-        iconName.className = "icon-text";
+    var iconName            = document.createElement( "span" );
+        iconName.className  = "icon-text";
 
     // Create new icon title
     var iconTitle = document.createTextNode( file.name );
@@ -80,8 +80,8 @@ function desktopIcon( file ) {
 function desktopWindow( file ) {
     
     // Create new window container div element
-    var windowContainer = document.createElement( "div" );
-        windowContainer.className = "window container";
+    var windowContainer             = document.createElement( "div" );
+        windowContainer.className   = "window container";
     
     // Pulling files from computer
     var compFiles = getFiles( file.path );
@@ -99,31 +99,31 @@ function desktopWindow( file ) {
 function header( parent, file ) {
 
     // Create new header div element
-    var header = document.createElement( "div" );
-        header.className = "header";
+    var header              = document.createElement( "div" );
+        header.className    = "header";
     
     // Create new headerTitle div element
-    var headerTitle = document.createElement( "div" );
-        headerTitle.className = "headerTitle";
+    var headerTitle             = document.createElement( "div" );
+        headerTitle.className   = "headerTitle";
     
     // Create new headerImage image
-    var headerImage = document.createElement( "img" );
-        headerImage.className = 'windowIcon container';
-        headerImage.style.backgroundImage = file.image;
+    var headerImage                         = document.createElement( "img" );
+        headerImage.className               = 'windowIcon container';
+        headerImage.style.backgroundImage   = file.image;
     
     // Create new header path
-    var headerPath = document.createElement( "div" );
+    var headerPath              = document.createElement( "div" );
         headerPath.append( document.createTextNode( "C:\\" + file.name ) );
-        headerPath.className = "headerPath";
+        headerPath.className    = "headerPath";
 
     // Create new control panel div element
-    var controlPanel = document.createElement( "div" );
-        controlPanel.className = "controlPanel container";
+    var controlPanel            = document.createElement( "div" );
+        controlPanel.className  = "controlPanel container";
 
     // Create minimize button
-    var minimize = document.createElement( "button" );
+    var minimize            = document.createElement( "button" );
         minimize.append( document.createTextNode( "_" ) );
-        minimize.onclick = function() {
+        minimize.onclick    = function() {
 
             // Minimize Window
             parent.style.display = "none";
@@ -134,9 +134,9 @@ function header( parent, file ) {
         resize.append( document.createTextNode( "[]" ) );
 
     // Create close button
-    var close = document.createElement( "button" );
+    var close           = document.createElement( "button" );
         close.append( document.createTextNode( "X" ) );
-        close.onclick = function() { 
+        close.onclick   = function() { 
 
             // Remove Window
             parent.remove();
@@ -169,8 +169,8 @@ function header( parent, file ) {
 function body( compFiles, file ) {
 
     // Create new body div element
-    var body = document.createElement( "div" );
-        body.className = "windowBody container";
+    var body            = document.createElement( "div" );
+        body.className  = "windowBody container";
     
     // Traverse path
     for ( f of compFiles ) {
@@ -199,8 +199,8 @@ function body( compFiles, file ) {
 function footer( count ) {
 
     // Create new footer div element
-    var footer = document.createElement( "div" );
-        footer.className = "container footer";
+    var footer              = document.createElement( "div" );
+        footer.className    = "container footer";
     
     // Create new count div element
     var countContainer = document.createElement( "div" );
