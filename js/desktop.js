@@ -3,6 +3,10 @@
  * Javascript file for desktop icon usage
  */
 
+// Initialize Drag Elements
+let offsetX, offsetY;
+
+
 // Make Desktop Icon
 function desktopIcon( file ) {
 
@@ -34,7 +38,7 @@ function desktopIcon( file ) {
        
         // Define appWindow
         var appWindow = null;
-        
+
         // If folder is a project file
         if ( icon.id == "project" ) {
 
@@ -97,15 +101,23 @@ function desktopWindow( file ) {
     
     // Create new window container div element
     var windowContainer             = document.createElement( "div" );
-        windowContainer.className   = "window container";
+        windowContainer.className   = "window container resizable";
     
     // Pulling files from computer
     var compFiles = getFiles( file.path );
 
+    // Create components
+    var headerObj = header( windowContainer, file );
+    var bodyObj    = body( compFiles, file );
+    var footerObj    = footer( compFiles.length );
+
+    // Make Draggable
+    headerObj.addEventListener( 'mousedown', handleMouseDown );
+
     // Append Window Container
-    windowContainer.append( header( windowContainer, file ) );
-    windowContainer.append( body( compFiles, file ) );
-    windowContainer.append( footer( compFiles.length ) );
+    windowContainer.append( headerObj );
+    windowContainer.append( bodyObj );
+    windowContainer.append( footerObj );
     
     // Return
     return windowContainer;
@@ -158,7 +170,7 @@ function header( parent, file ) {
             parent.remove();
 
             // Remove TaskBar Pop Up
-            document.querySelector( "#" + file.name ).remove();
+            document.getElementById( "window-" + file.name ).remove();
         };
 
     // Append HeaderTitle
@@ -243,49 +255,6 @@ function footer( count ) {
     return footer;
 }
 
-// Drag Window
-function dragWindow( window ) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById(window.id + "header")) {
-        // if present, the header is where you move the DIV from:
-        document.getElementById(window.id + "header").onmousedown = dragMouseDown;
-    } else {
-        // otherwise, move the DIV from anywhere inside the DIV:
-        window.onmousedown = dragMouseDown;
-    }
-
-    function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
-    }
-
-        function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        // set the element's new position:
-        window.style.top = (window.offsetTop - pos2) + "px";
-        window.style.left = (window.offsetLeft - pos1) + "px";
-    }
-
-    function closeDragElement() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
-}
-
 // Read file from webserver with ajax
 function loadFile( filePath ) {
 
@@ -317,6 +286,38 @@ function getFiles( path ) {
 
     // Return
     return file;
+}
+
+// Function to handle mouse down event
+function handleMouseDown( event ) {
+    
+    // Calculate the offset between mouse position and the top left corner of the parent div
+    offsetX = event.clientX - event.target.parentElement.offsetLeft;
+    offsetY = event.clientY - event.target.parentElement.offsetTop;
+
+    // Attach event listeners for mouse move and mouse up events
+    document.addEventListener( 'mousemove', handleMouseMove );
+    document.addEventListener( 'mouseup', handleMouseUp );
+}
+
+// Function to handle mouse move event
+function handleMouseMove( event ) {
+    
+    // Calculate new position of the parent div based on mouse position and offset
+    const newX = event.clientX - offsetX;
+    const newY = event.clientY - offsetY;
+
+    // Update position of the parent div
+    event.target.parentElement.style.left = newX + 'px';
+    event.target.parentElement.style.top = newY + 'px';
+}
+
+// Function to handle mouse up event
+function handleMouseUp() {
+    
+    // Remove event listeners for mouse move and mouse up events
+    document.removeEventListener( 'mousemove', handleMouseMove );
+    document.removeEventListener( 'mouseup', handleMouseUp );
 }
 
 /*https://cdn.jsdelivr.net/gh/KaterTot/katertot.github.io/projects/*/

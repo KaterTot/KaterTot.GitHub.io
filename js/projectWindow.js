@@ -22,7 +22,7 @@ function projectWindow( projectFile ) {
 
         // Create new project container div element
         var projectContainer            = document.createElement( "div" );
-            projectContainer.className  = "projectWindow";
+            projectContainer.className  = "projectWindow resizable";
 
         // Create body div
         var projectBody             = document.createElement( "div" );
@@ -33,8 +33,14 @@ function projectWindow( projectFile ) {
         projectBody.append( imageBox( imagesPath ) );
         projectBody.append( codeBox( codePath ) );
 
+        // Create header
+        var projHeader = header( projectContainer, projectFile );
+
+        // Make Draggable
+        projHeader.addEventListener( 'mousedown', handleMouseDown );
+
         // Append container
-        projectContainer.append( header( projectContainer, projectFile ) );
+        projectContainer.append( projHeader );
         projectContainer.append( projectBody );
 
         // Wait 2 seconds

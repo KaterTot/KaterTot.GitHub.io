@@ -45,7 +45,7 @@ function taskWindow( file ) {
     // Create window div
     var window = document.createElement( "div" );
         window.className = "taskBarPopUp";
-        window.id = file.name;
+        window.id = "window-" + file.name;
 
     // Create image div
     var fileImage = document.createElement( "img" );
