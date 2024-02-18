@@ -8,34 +8,44 @@ let slideIndex = 1;
 
 // Make projectWindow
 function projectWindow( projectFile ) {
+    
+    //Handle async function
+    return new Promise( function ( resolve ) {
+        
+        // Define files
+        var files = getFiles( projectFile.path );
 
-    // Define files
-    var files = getFiles( projectFile.path );
+        // Define File Paths
+        var codePath        = projectFile.path + "/" + files[ 0 ];
+        var descriptionPath = projectFile.path + "/" + files[ 1 ];
+        var imagesPath      = projectFile.path + "/" + files[ 2 ];
 
-    // Define File Paths
-    var codePath        = projectFile.path + "/" + files[ 0 ];
-    var descriptionPath = projectFile.path + "/" + files[ 1 ];
-    var imagesPath      = projectFile.path + "/" + files[ 2 ];
+        // Create new project container div element
+        var projectContainer            = document.createElement( "div" );
+            projectContainer.className  = "projectWindow";
 
-    // Create new project container div element
-    var projectContainer            = document.createElement( "div" );
-        projectContainer.className  = "projectWindow";
+        // Create body div
+        var projectBody             = document.createElement( "div" );
+            projectBody.className   = "windowBody projBody";
 
-    // Create body div
-    var projectBody             = document.createElement( "div" );
-        projectBody.className   = "windowBody projBody";
+        // Append projectBody
+        projectBody.append( descriptionBox( descriptionPath ) );
+        projectBody.append( imageBox( imagesPath ) );
+        projectBody.append( codeBox( codePath ) );
 
-    // Append projectBody
-    projectBody.append( descriptionBox( descriptionPath ) );
-    projectBody.append( imageBox( imagesPath ) );
-    projectBody.append( codeBox( codePath ) );
+        // Append container
+        projectContainer.append( header( projectContainer, projectFile ) );
+        projectContainer.append( projectBody );
 
-    // Append container
-    projectContainer.append( header( projectContainer, projectFile ) );
-    projectContainer.append( projectBody );
+        // Wait 2 seconds
+        setTimeout( function() {
+            
+            // Return
+            resolve( projectContainer );
 
-    // Return
-    return projectContainer;
+        }, 150);
+        
+    });
 }
 
 // Make description div
@@ -148,10 +158,11 @@ function imageBox( imagesPath ) {
 
 // Make code div
 function codeBox( codePath ) {
-
+    
     // Define arrays
-    var tabArray    = [];
-    var codeArray   = [];
+    var tabArray        = [];
+    var codeArray       = [];
+    var codeInnerArr    = [];
 
     // Create div
     var codeDiv             = document.createElement( "div" );
@@ -193,7 +204,7 @@ function codeBox( codePath ) {
         // Read Code File
         fetch( filePath ).then( ( res ) => res.text() ).then( ( function( fileIndex) {
             return function( text ) {
-            
+                
                 // Create innerbox
                 var codeInner               = document.createElement( "textarea" );
                     codeInner.className     = "code-editor";
@@ -216,12 +227,20 @@ function codeBox( codePath ) {
                 // Set height to match the height of the parent
                 editor.setSize( null, codeDiv.clientHeight );
                 codeArray.push( editor );
+                codeInnerArr.push( codeInner );
 
                 // Hide code except for the first one
-                if ( fileIndex !== "0" )
-                {
+                if ( fileIndex !== "0" ) {
+                    
                     // Hide
-                    editor.getWrapperElement().style.display = "none";
+                    editor.getWrapperElement().style.display    = "none";
+                    codeInner.style.display                     = "none";
+                }
+                else { 
+                    
+                    // Show
+                    editor.getWrapperElement().style.display    = "block";  
+                    codeInner.style.display                     = "block";
                 }
             };
             
@@ -247,13 +266,15 @@ function codeBox( codePath ) {
                 if ( i != tabIndex )
                 {
                     // Hide
-                    codeArray[ i ].getWrapperElement().style.display = "none";
-                    tabArray[ i ].classList.remove( "active-tab" );
+                    codeArray[ i ].getWrapperElement().style.display    = "none";
+                    codeInnerArr[ i ].style.display                     = "none";
+                    tabArray[ i ].classList.remove( "active-tab" ); 
                 }
                 else
                 {
                     // Display
                     codeArray[ tabIndex ].getWrapperElement().style.display = "block";
+                    codeInnerArr[ i ].style.display                         = "block";
                     tabArray[ tabIndex ].classList.add( "active-tab" );
                 }
             }

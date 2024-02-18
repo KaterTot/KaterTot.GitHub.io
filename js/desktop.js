@@ -5,13 +5,14 @@
 
 // Make Desktop Icon
 function desktopIcon( file ) {
-  
+
     //Get File Name
     file.name = file.path.substring( file.path.lastIndexOf('/') + 1);
     
     // Create new icon div element
     var icon            = document.createElement( "div" );
         icon.className  = "icon";
+        icon.id         = file.id;
 
     // Create new icon image
     var iconImage                       = document.createElement( "img" );
@@ -30,11 +31,23 @@ function desktopIcon( file ) {
 
     // Add event listener
     icon.addEventListener( "dblclick", function() {
-        
-        // Check if file or Directory - get an error bc cannot opendir of a txt file
+       
+        // If folder is a project file
+        if ( icon.id == "project" ) {
 
-        // Open Desktop Window Popup
-        var appWindow = document.body.appendChild( desktopWindow( file ) ); 
+            // Handle async functions
+            projectWindow( file ).then( function (result ) {
+                
+                // Open Project Window Popup
+                document.body.appendChild( result );
+            })
+        }
+        // If folder is a regular file
+        else {
+            
+            // Open Desktop Window Popup
+            var appWindow = document.body.appendChild( desktopWindow( file ) );
+        }
 
         // Create taskbar item in tabsdiv
         var taskBarButton = document.querySelector( '.tabsDiv' ).appendChild( taskWindow( file ) );
@@ -171,7 +184,7 @@ function body( compFiles, file ) {
     // Create new body div element
     var body            = document.createElement( "div" );
         body.className  = "windowBody container";
-    
+     
     // Traverse path
     for ( f of compFiles ) {
 
@@ -182,7 +195,14 @@ function body( compFiles, file ) {
         var path = file.path + "/" + f;
 
         // Create fileObj
-        var fileObj = { name: "", path: path, image: "url('./images/openFolder.png')"};
+        var fileObj = { id: "file", name: "", path: path, image: "url('./images/openFolder.png')"};
+
+        // If Projects file
+        if ( file.id == "projects" ) {
+            
+            // Identify children fileObj
+            fileObj.id = "project";
+        }
 
         // Create icon
         var project = desktopIcon( fileObj );

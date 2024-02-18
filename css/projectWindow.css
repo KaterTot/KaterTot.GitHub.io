@@ -124,6 +124,12 @@ img { vertical-align: middle; }
 	max-height	: 100%;
 }
 
+/* Code Editor */
+.code-editor {
+	height	: 100%;
+	width	: 100%;
+}
+
 /* Code Mirror */
 .CodeMirror {
 	overflow-y	: auto;
