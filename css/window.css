@@ -80,3 +80,14 @@
 	resize		: both;
 	overflow	: auto;
 }
+
+/* Lock Div on Maximize */
+.lockedDiv {
+	position	: fixed;
+	top			: 0;
+	left		: 0;
+	width		: 100%;
+	max-height	: calc( 100% - 3% );
+	cursor		: default;
+	margin		: 0;
+}

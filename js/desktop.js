@@ -158,8 +158,40 @@ function header( parent, file ) {
         };
 
     // Create re-size button
-    var resize = document.createElement( "button" );
+    var resize          = document.createElement( "button" );
         resize.append( document.createTextNode( "[]" ) );
+        resize.onclick  = function() {
+
+            // If the window is currently maximized
+            if ( parent.classList.contains( "maximized" ) ) {
+                
+                // restore it to its original size
+                parent.classList.remove( "maximized" );
+                
+                // unlock div
+                parent.classList.remove( "lockedDiv" );
+                
+                // Reset window size
+                parent.style.width  = parent.dataset.originalWidth;
+                parent.style.height = parent.dataset.originalHeight;
+            } 
+            else {
+                
+                // If the window is not maximized, maximize it
+                parent.classList.add( "maximized" );
+
+                // Store original window size
+                parent.dataset.originalWidth    = parent.style.width;
+                parent.dataset.originalHeight   = parent.style.height;
+
+                // lock div
+                parent.classList.add( "lockedDiv" );
+
+                // Set window size to fill the screen
+                parent.style.width  = "100%";
+                parent.style.height = "100%";
+            }
+        };
 
     // Create close button
     var close           = document.createElement( "button" );
@@ -318,6 +350,34 @@ function handleMouseUp() {
     // Remove event listeners for mouse move and mouse up events
     document.removeEventListener( 'mousemove', handleMouseMove );
     document.removeEventListener( 'mouseup', handleMouseUp );
+}
+
+// Function to handle clicking on the resize button
+function toggleMaximize() {
+
+    // If the window is currently maximized
+    if ( parent.classList.contains( 'maximized' ) ) {
+        
+        // restore it to its original size
+        parent.classList.remove( 'maximized' );
+        
+        // Reset window size
+        parent.style.width  = parent.dataset.originalWidth;
+        parent.style.height = parent.dataset.originalHeight;
+    } 
+    else {
+        
+        // If the window is not maximized, maximize it
+        parent.classList.add(' maximized' );
+
+        // Store original window size
+        parent.dataset.originalWidth    = parent.style.width;
+        parent.dataset.originalHeight   = parent.style.height;
+
+        // Set window size to fill the screen
+        parent.style.width  = '100%';
+        parent.style.height = '100%';
+    }
 }
 
 /*https://cdn.jsdelivr.net/gh/KaterTot/katertot.github.io/projects/*/
