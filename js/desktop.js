@@ -138,7 +138,7 @@ function header( parent, file ) {
 
     // Create new control panel div element
     var controlPanel            = document.createElement( "div" );
-        controlPanel.className  = "controlPanel container";
+        controlPanel.className  = "controlPanel";
 
     // Create minimize button
     var minimize            = document.createElement( "button" );
@@ -268,7 +268,7 @@ function footer( count ) {
 
     // Create new footer div element
     var footer              = document.createElement( "div" );
-        footer.className    = "container footer";
+        footer.className    = "footer";
     
     // Create new count div element
     var countContainer = document.createElement( "div" );
