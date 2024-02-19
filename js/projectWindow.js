@@ -22,7 +22,8 @@ function projectWindow( projectFile ) {
 
         // Create new project container div element
         var projectContainer            = document.createElement( "div" );
-            projectContainer.className  = "projectWindow resizable";
+            projectContainer.className  = "window projectWindow resizable";
+            projectContainer.id         = "window-" + projectFile.name;
 
         // Create body div
         var projectBody             = document.createElement( "div" );

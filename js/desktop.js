@@ -69,7 +69,8 @@ function desktopIcon( file ) {
                 appWindow.style.display = "block";
 
                 // Change styling for taskBarButton
-                //taskBarButton.className = "tabsDiv";
+                taskBarButton.classList.add( "open" );
+                taskBarButton.classList.remove( "closed" );
             }
             else {
 
@@ -77,7 +78,8 @@ function desktopIcon( file ) {
                 appWindow.style.display = "none"; 
 
                 // Change styling for taskBarButton
-                //taskBarButton.className = "startMenu";
+                taskBarButton.classList.add( "closed" );
+                taskBarButton.classList.remove( "open" );
             }
 
 
@@ -102,6 +104,7 @@ function desktopWindow( file ) {
     // Create new window container div element
     var windowContainer             = document.createElement( "div" );
         windowContainer.className   = "window container resizable";
+        windowContainer.id          = "window-" + file.name;
     
     // Pulling files from computer
     var compFiles = getFiles( file.path );
@@ -147,6 +150,13 @@ function header( parent, file ) {
 
             // Minimize Window
             parent.style.display = "none";
+            
+            // Get taskBarButton item
+            var taskBarButton = document.getElementById( "taskBar-" + file.name );
+
+            // Change taskBarStyle
+            taskBarButton.classList.add( "closed" );
+            taskBarButton.classList.remove( "open" );
         };
 
     // Create re-size button
@@ -194,7 +204,7 @@ function header( parent, file ) {
             parent.remove();
 
             // Remove TaskBar Pop Up
-            document.getElementById( "window-" + file.name ).remove();
+            document.getElementById( "taskBar-" + file.name ).remove();
         };
 
     // Append HeaderTitle
