@@ -4,7 +4,7 @@
  */
 
 // Initialize Drag Elements
-let offsetX, offsetY;
+let offsetX, offsetY, draggedDiv;
 
 
 // Make Desktop Icon
@@ -106,18 +106,10 @@ function desktopWindow( file ) {
     // Pulling files from computer
     var compFiles = getFiles( file.path );
 
-    // Create components
-    var headerObj = header( windowContainer, file );
-    var bodyObj    = body( compFiles, file );
-    var footerObj    = footer( compFiles.length );
-
-    // Make Draggable
-    headerObj.addEventListener( 'mousedown', handleMouseDown );
-
     // Append Window Container
-    windowContainer.append( headerObj );
-    windowContainer.append( bodyObj );
-    windowContainer.append( footerObj );
+    windowContainer.append( header( windowContainer, file ) );
+    windowContainer.append( body( compFiles, file ) );
+    windowContainer.append( footer( compFiles.length ) );
     
     // Return
     return windowContainer;
@@ -150,7 +142,7 @@ function header( parent, file ) {
 
     // Create minimize button
     var minimize            = document.createElement( "button" );
-        minimize.append( document.createTextNode( "_" ) );
+        minimize.innerHTML  = "&#128469;";
         minimize.onclick    = function() {
 
             // Minimize Window
@@ -158,9 +150,9 @@ function header( parent, file ) {
         };
 
     // Create re-size button
-    var resize          = document.createElement( "button" );
-        resize.append( document.createTextNode( "[]" ) );
-        resize.onclick  = function() {
+    var resize              = document.createElement( "button" );
+        resize.innerHTML    = "&#128470;";
+        resize.onclick      = function() {
 
             // If the window is currently maximized
             if ( parent.classList.contains( "maximized" ) ) {
@@ -195,7 +187,7 @@ function header( parent, file ) {
 
     // Create close button
     var close           = document.createElement( "button" );
-        close.append( document.createTextNode( "X" ) );
+        close.innerHTML = "&#128473;";
         close.onclick   = function() { 
 
             // Remove Window
@@ -220,6 +212,15 @@ function header( parent, file ) {
 
     // Make window draggable
     //header.ondrag = function() { dragWindow( parent ) };
+    document.addEventListener( 'mousedown', function( event ) {
+
+        // Check if the header is clicked on 
+        if ( event.target.closest( ".header" ) === header )
+        {
+            //Drag
+            handleMouseDown( event );
+        }
+    });
 
     // Return
     return header;
@@ -327,6 +328,9 @@ function handleMouseDown( event ) {
     offsetX = event.clientX - event.target.parentElement.offsetLeft;
     offsetY = event.clientY - event.target.parentElement.offsetTop;
 
+    // Define the clicked div
+    draggedDiv = event.target;
+
     // Attach event listeners for mouse move and mouse up events
     document.addEventListener( 'mousemove', handleMouseMove );
     document.addEventListener( 'mouseup', handleMouseUp );
@@ -340,8 +344,8 @@ function handleMouseMove( event ) {
     const newY = event.clientY - offsetY;
 
     // Update position of the parent div
-    event.target.parentElement.style.left = newX + 'px';
-    event.target.parentElement.style.top = newY + 'px';
+    draggedDiv.parentElement.style.left = newX + 'px';
+    draggedDiv.parentElement.style.top = newY + 'px';
 }
 
 // Function to handle mouse up event

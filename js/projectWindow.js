@@ -36,9 +36,6 @@ function projectWindow( projectFile ) {
         // Create header
         var projHeader = header( projectContainer, projectFile );
 
-        // Make Draggable
-        projHeader.addEventListener( 'mousedown', handleMouseDown );
-
         // Append container
         projectContainer.append( projHeader );
         projectContainer.append( projectBody );
