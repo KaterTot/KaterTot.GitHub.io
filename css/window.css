@@ -138,9 +138,9 @@
 /* Lock Div on Maximize */
 .lockedDiv {
 	position	: fixed;
-	top			: 0;
-	left		: 0;
-	width		: 100%;
+	top			: 0 !important;
+	left		: 0 !important;
+	width		: 100% !important;
 	max-height	: calc( 100% - 3% );
 	cursor		: default;
 	margin		: 0;
