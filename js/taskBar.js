@@ -24,11 +24,15 @@ function taskBar() {
     var timeDiv = document.createElement( "div" );
         timeDiv.className = "timeDiv";
 
-    // Get local time
-    var currentTime = new Date();
+    // Update time every second
+    setInterval( function() {
+        
+        // Get local time
+        var currentTime = new Date();
     
-    // Add to timeDiv
-    timeDiv.innerText = currentTime.toLocaleString( 'en-US', { hour: 'numeric', minute: 'numeric', hour12: true } );
+        // Add to timeDiv
+        timeDiv.innerText = currentTime.toLocaleString( 'en-US', { hour: 'numeric', minute: 'numeric', hour12: true } );
+    }, 1000 );
 
     // Append
     taskBar.appendChild( startMenu );
