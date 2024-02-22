@@ -1,8 +1,0 @@
-<?php
-
-if(isset($_GET["name"])){
-    setcookie('name', $_GET["name"], time() + 60*60*24*30);
-    header( "Location: http://potato-katie.com/marketplace.php" );
-}
-
-?>
