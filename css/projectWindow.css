@@ -1,0 +1,166 @@
+/**
+ * Author: Kate Tran
+ * CSS file for project window design
+ */
+
+
+/* Project Window Style */
+.projectWindow {
+	position		: absolute;
+	height			: 97%;
+	width			: 100%;
+	background-color: white;
+	z-index			: 1999;
+}
+
+/* Body Box Style */
+.bodyBox {
+	position	: relative;
+	display		: inline-block;
+	border		: 2px solid black;
+	width		: 32%;
+	height		: 80%;
+	margin		: 10px;
+	white-space	: pre-wrap;
+}
+
+/* Project Body Style */
+.projBody {
+	display			: flex;
+	align-items		: center;
+	justify-content	: center;
+	/*height		: 100% !important;*/
+}
+
+/* Slides Style */
+.slides {
+	display			: flex;
+	justify-content	: center;
+	align-items		: center;
+	height			: 60%;
+	width			: 60%;
+	padding 		: 10%;
+	margin			: auto;
+}
+
+/* Center image within div */
+.slides img {
+	height		: 100%;
+	width		: 100%;
+	object-fit	: contain;
+}
+
+/* Slideshow container */
+.slideshow-container {
+	max-width	: 1000px;
+	position	: relative;
+	margin		: auto;
+}
+
+/* Previous and Next Buttons */
+.prev, .next {
+	cursor				: pointer;
+	position			: absolute;
+	top					: 50%;
+	width				: auto;
+	padding				: 10px 20px;
+	margin-top			: -22px;
+	color				: black;
+	font-weight			: bold;
+	font-size			: 12px;
+	border				: 1px solid #8c8c8c;
+	background-color	: #f0f0f0;
+	transition			: 0.6s ease;
+	border-radius		: 0 3px 3px 0;
+	user-select			: none;
+}
+
+/* Next Button Position */
+.next {
+	right			: 0;
+	border-radius	: 3px 0 0 3px;
+}
+
+/* On hover, add style */
+.prev:hover, .next:hover {
+	background-color: rgba( 0, 0, 0, 0.8 );
+}
+
+/* Dots indicators */
+.dot {
+	cursor				: pointer;
+	height				: 15px;
+	width				: 15px; 
+	margin				: 0 2px;
+	background-color	: #bbb;
+	border-radius		: 50%;
+	display				: inline-block;
+	transition			: background-color 0.6s ease;
+}
+
+/* dot hover */
+.active, .dot:hover {
+	background-color: #717171;
+}
+
+/* Fade animation */
+.fade {
+	animation-name: fade;
+	animation-duration: 1.5s;
+}
+
+@keyframes fade {
+	from 	{ opacity: .4 }
+	to 		{ opacity: 1 }
+}
+
+img { vertical-align: middle; }
+
+/* Code Container */
+.code-container {
+	overflow	: hidden;
+	overflow-x	: hidden;
+	white-space : pre-wrap;
+	max-height	: 100%;
+	max-width	: 100%;
+}
+
+/* Code Editor */
+.code-editor {
+	height		: calc( 100% - 41px );
+	width		: 100%;
+	padding		: 0px;
+	overflow-y	:auto;
+	resize		: none;
+}
+
+/* Code Mirror */
+.CodeMirror {
+	overflow-x	: hidden;
+}
+
+/* Code Tabs ========================================================================================*/
+.tabs {
+	display			: flex;
+	border-bottom	: 1px solid #ccc;
+}
+
+.tab {
+    padding			: 10px 20px;
+    cursor			: pointer;
+    border-right	: 1px solid #ccc;
+}
+
+.tab:last-child {
+    border-right: none;
+}
+
+.tab:hover {
+    background-color: #f0f0f0;
+}
+
+.active-tab {
+	background-color: #999;
+}
+
+/* Code Tabs ========================================================================================*/

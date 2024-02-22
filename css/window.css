@@ -1,0 +1,147 @@
+/**
+ * Author: Kate Tran
+ * CSS file for window design
+ */
+
+
+/* Window Style */
+.window {
+	position			: absolute;
+	height				: 600px;
+	width				: 700px;
+	top					: 30%;
+	left				: 30%;
+	background-color	: #C0C0C0;
+	border				: 2px solid #000000;
+	min-height			: 300px;
+	min-width			: 500px;
+	font-family			: Arial, sans-serif;
+	overflow			: hidden;
+	box-shadow			: 0px 0px 10px #888888;
+	border-top			: 2px solid rgb( 247, 240, 247 );
+	border-left			: 2px solid rgb( 247, 240, 247 );
+}
+
+/* Window Container Style */
+.container {
+	margin: 5px;
+}
+
+/* Window Icon Style */
+.windowIcon {
+	background-size	: cover;
+	width			: 20px;
+	height			: 20px;
+	margin-right	: 10px;
+}
+
+/* Header Style */
+.header {
+	display				: flex;
+	align-items			: center;
+	justify-content		: space-between;
+	background-color	: #0057a6;
+	color				: #ffffff;
+	border				: 5px solid #c0c0c0;
+	position			: relative;
+	text-align			: center;
+	cursor				: move;
+	height				: 25px;
+}
+
+/* Header Title Style */
+.headerTitle {
+	display		: flex;
+	align-items	: center;
+}
+
+/* Header Path Style */
+.headerPath {
+	font-size: small;
+}
+
+/* Control Panel Style ===================================================================*/
+.controlPanel {
+	display				: flex;
+	align-items			: center;
+	justify-content		: flex-end;
+	margin-left			: auto;
+	background-color	: transparent;
+	border				: none;
+	color				: #ffffff;
+	font-family			: Arial, sans-serif;
+	cursor				: pointer;
+	height				: 100%;
+	margin				: 5px 0px 5px 5px;
+}
+
+.controlPanel button {
+	border-top			: 2px solid rgb( 247, 240, 247 );
+	border-left			: 2px solid rgb( 247, 240, 247 );
+	margin				: 1px;
+	width				: 15%;
+	padding				: 0px 10px;
+	cursor				: pointer;
+	display				: flex;
+	align-items			: center;
+	justify-content		: center;
+}
+
+.controlPanel button:hover {
+	background-color: #a0a0a0;
+}
+
+.controlPanel button:active {
+	background-color: #808080;
+}
+
+/*=======================================================================================*/
+
+
+/* Window Body Style */
+.windowBody {
+	position			: relative;
+	padding				: 2px;
+	background-color	: #ffffff;
+	color				: #000000;
+	font-family			: Arial, sans-serif;
+	overflow-y			: scroll;
+	width				: auto;
+	height				: calc(100% - 80px);
+	border-top			: 2px solid rgb( 127, 120, 127 );
+	border-left			: 2px solid rgb( 127, 120, 127 );
+	border-bottom		: 2px solid rgb( 247, 240, 247 );
+}
+
+/* Footer Style*/
+.footer {
+	background-color	: rgb( 191, 184, 191 );
+	border-top			: 2px solid rgb( 127, 120, 127 );
+	border-left			: 2px solid rgb( 127, 120, 127 );
+	border-bottom		: 2px solid rgb( 247, 240, 247 );
+	border-right		: 2px solid rgb( 247, 240, 247 );
+	width				: 20%;
+	text-align			: center;
+	height				: 20px;
+	display             : flex; /* Add flex display */
+    justify-content     : left; /* Center horizontally */
+    align-items         : center; /* Center vertically */
+	padding-left		: 5px;
+	margin				: 0px 5px 0px 5px;
+}
+
+/* Resiable Style */
+.resizable {
+	resize		: both;
+}
+
+/* Lock Div on Maximize */
+.lockedDiv {
+	position	: fixed;
+	top			: 0 !important;
+	left		: 0 !important;
+	width		: 100% !important;
+	max-height	: calc( 100% - 3% );
+	cursor		: default;
+	margin		: 0;
+}

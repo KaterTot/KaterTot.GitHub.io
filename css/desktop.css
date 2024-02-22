@@ -1,0 +1,105 @@
+/**
+ * Author: Kate Tran
+ * CSS file for desktop design
+ */
+
+/* Wallpaper Style */
+#wallpaper {
+	background-image: url('./wallpaper.jpg');
+	background-size: cover;
+	margin: 0px;
+	height: 100vh;
+	width: 100%;
+	overflow: hidden;
+}
+
+/* Icon Style */
+.icon {
+	position: relative;
+	text-align: center;
+	margin: 1%;
+	float: left;
+} 
+
+/* Icon Text Style */
+.icon-text {
+	font-size: medium;
+	font-family: 'Levi Windows';
+}
+
+/* Folder Style */
+.folder {
+	background-size: cover;
+	width: 60px;
+	height: 60px;
+}
+
+.windowIcon {
+	position: relative;
+}
+
+.taskBar {
+	display: flex;
+	align-items: center;
+	position: fixed;
+	background-color: rgb( 191, 184, 191 );
+	border-top: 2px solid rgb( 247, 240, 247 );
+	bottom: 0;
+	width: 100%;
+	height: 3%;
+}
+
+.startMenu {
+	border-top			: 2px solid rgb( 247, 240, 247 );
+	border-left			: 2px solid rgb( 247, 240, 247 );
+	background-color	: rgb( 191, 184, 191 );
+	height				: 85%;
+	margin				: 0.25%;
+}
+
+.timeDiv {
+	margin-left: auto;
+	width: 5%;
+	border-top: 2px solid rgb( 127, 120, 127 );
+	border-left: 2px solid rgb( 127, 120, 127 );
+	border-bottom: 2px solid rgb( 247, 240, 247 );
+	border-right: 2px solid rgb( 247, 240, 247 );
+	height: 85%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.taskBarPopUp {
+	height			: 25px;
+	position		: relative;
+	float			: left;
+	width			: 200px;
+	margin			: 2px;
+	text-align		: left;
+	display			: flex;
+	align-items		: center;
+	padding			: 0 5px;
+}
+
+.tabsDiv {
+	position: relative;
+	text-align: center;
+}
+
+.closed {
+	border-top			: 2px solid rgb( 247, 240, 247 );
+	border-left			: 2px solid rgb( 247, 240, 247 );
+	border-bottom		: 2px solid rgb( 127, 120, 127 );
+	border-right		: 2px solid rgba( 0, 0, 0, 0.8 );
+	background-color	: rgb( 191, 184, 191 );
+}
+
+.open {
+	background-color: rgb( 191, 184, 191 );
+	border-top: 2px solid rgb( 127, 120, 127 );
+	border-left: 2px solid rgb( 127, 120, 127 );
+	border-bottom: 2px solid rgb( 247, 240, 247 );
+	border-right: 2px solid rgb( 247, 240, 247 );
+}
+
