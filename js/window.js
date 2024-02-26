@@ -3,12 +3,17 @@
  * Javascript file for window usage
  */
 
+// Initialize Drag Elements
+let offsetX, offsetY, draggedDiv;
+
+
 // Make Window
 function desktopWindow( file ) {
-  
+    
     // Create new window container div element
-    var windowContainer = document.createElement( "div" );
-        windowContainer.className = "window container";
+    var windowContainer             = document.createElement( "div" );
+        windowContainer.className   = "window container resizable";
+        windowContainer.id          = "window-" + file.name;
     
     // Pulling files from computer
     var compFiles = getFiles( file.path );
@@ -17,10 +22,7 @@ function desktopWindow( file ) {
     windowContainer.append( header( windowContainer, file ) );
     windowContainer.append( body( compFiles, file ) );
     windowContainer.append( footer( compFiles.length ) );
-
-    // Make window draggable
-    //dragWindow( windowContainer );
-
+    
     // Return
     return windowContainer;
 }
@@ -29,45 +31,89 @@ function desktopWindow( file ) {
 function header( parent, file ) {
 
     // Create new header div element
-    var header = document.createElement( "div" );
-        header.className = "header";
+    var header              = document.createElement( "div" );
+        header.className    = "header";
     
     // Create new headerTitle div element
-    var headerTitle = document.createElement( "div" );
-        headerTitle.className = "headerTitle";
+    var headerTitle             = document.createElement( "div" );
+        headerTitle.className   = "headerTitle";
     
     // Create new headerImage image
-    var headerImage = document.createElement( "img" );
-        headerImage.className = 'windowIcon container';
-        headerImage.style.backgroundImage = file.image;
+    var headerImage                         = document.createElement( "img" );
+        headerImage.className               = 'windowIcon container';
+        headerImage.style.backgroundImage   = file.image;
     
     // Create new header path
-    var headerPath = document.createElement( "div" );
+    var headerPath              = document.createElement( "div" );
         headerPath.append( document.createTextNode( "C:\\" + file.name ) );
-        headerPath.className = "headerPath";
+        headerPath.className    = "headerPath";
 
     // Create new control panel div element
-    var controlPanel = document.createElement( "div" );
-        controlPanel.className = "controlPanel container";
+    var controlPanel            = document.createElement( "div" );
+        controlPanel.className  = "controlPanel";
 
     // Create minimize button
-    var minimize = document.createElement( "button" );
-        minimize.append( document.createTextNode( "_" ) );
+    var minimize            = document.createElement( "button" );
+        minimize.innerHTML  = "&#128469;";
+        minimize.onclick    = function() {
+
+            // Minimize Window
+            parent.style.display = "none";
+            
+            // Get taskBarButton item
+            var taskBarButton = document.getElementById( "taskBar-" + file.name );
+
+            // Change taskBarStyle
+            taskBarButton.classList.add( "closed" );
+            taskBarButton.classList.remove( "open" );
+        };
 
     // Create re-size button
-    var resize = document.createElement( "button" );
-        resize.append( document.createTextNode( "[]" ) );
+    var resize              = document.createElement( "button" );
+        resize.innerHTML    = "&#128470;";
+        resize.onclick      = function() {
+
+            // If the window is currently maximized
+            if ( parent.classList.contains( "maximized" ) ) {
+                
+                // restore it to its original size
+                parent.classList.remove( "maximized" );
+                
+                // unlock div
+                parent.classList.remove( "lockedDiv" );
+                
+                // Reset window size
+                parent.style.width  = parent.dataset.originalWidth;
+                parent.style.height = parent.dataset.originalHeight;
+            } 
+            else {
+                
+                // If the window is not maximized, maximize it
+                parent.classList.add( "maximized" );
+
+                // Store original window size
+                parent.dataset.originalWidth    = parent.style.width;
+                parent.dataset.originalHeight   = parent.style.height;
+
+                // lock div
+                parent.classList.add( "lockedDiv" );
+
+                // Set window size to fill the screen
+                parent.style.width  = "100%";
+                parent.style.height = "100%";
+            }
+        };
 
     // Create close button
-    var close = document.createElement( "button" );
-        close.append( document.createTextNode( "X" ) );
-        close.onclick = function() { 
+    var close           = document.createElement( "button" );
+        close.innerHTML = "&#128473;";
+        close.onclick   = function() { 
 
             // Remove Window
             parent.remove();
 
             // Remove TaskBar Pop Up
-            file.taskBar.querySelector( "#" + file.name ).remove();
+            document.getElementById( "taskBar-" + file.name ).remove();
         };
 
     // Append HeaderTitle
@@ -83,29 +129,47 @@ function header( parent, file ) {
     header.append( headerTitle );
     header.append( controlPanel );
 
+    // Make window draggable
+    //header.ondrag = function() { dragWindow( parent ) };
+    document.addEventListener( 'mousedown', function( event ) {
+
+        // Check if the header is clicked on 
+        if ( event.target.closest( ".header" ) === header )
+        {
+            //Drag
+            handleMouseDown( event );
+        }
+    });
+
     // Return
     return header;
 }
 
 // Make Body
-function body( file ) {
+function body( compFiles, file ) {
 
     // Create new body div element
-    var body = document.createElement( "div" );
-        body.className = "windowBody container";
-    
+    var body            = document.createElement( "div" );
+        body.className  = "windowBody container";
+     
     // Traverse path
-    for ( f of file ) {
+    for ( f of compFiles ) {
 
         // Get File Type, convert to image
         //var image = getFileType( f );
         
         // Create Path String
-        var path = "./" + f;
-        console.log("path: ", path)
+        var path = file.path + "/" + f;
 
         // Create fileObj
-        var fileObj = { name: "", path: path, image: "url('./images/openFolder.png')"};
+        var fileObj = { id: "file", name: "", path: path, image: "url('./images/openFolder.png')"};
+
+        // If Projects file
+        if ( file.id == "projects" ) {
+            
+            // Identify children fileObj
+            fileObj.id = "project";
+        }
 
         // Create icon
         var project = desktopIcon( fileObj );
@@ -122,8 +186,8 @@ function body( file ) {
 function footer( count ) {
 
     // Create new footer div element
-    var footer = document.createElement( "div" );
-        footer.className = "container footer";
+    var footer              = document.createElement( "div" );
+        footer.className    = "footer";
     
     // Create new count div element
     var countContainer = document.createElement( "div" );
@@ -186,37 +250,66 @@ function dragWindow( window ) {
     }
 }
 
-// ISSUE HERE, AFTER CLICKING INTO SECOND LAYER, DOES NOT READ FURTHER
-// Read file from webserver with ajax
-function loadFile( filePath ) {
-
-    // Define files;
-    var files = [];
-
-    // Pass arguments to PHP
-    $.ajax({
-        type: 'POST',
-        url: './windowBody.php',
-        data: { path: filePath },
-        async: false,
-        success: function( data ) { files = data; }
-    });
+// Function to handle mouse down event
+function handleMouseDown( event ) {
     
-    // Return
-    return files;
+    // Calculate the offset between mouse position and the top left corner of the parent div
+    offsetX = event.clientX - event.target.parentElement.offsetLeft;
+    offsetY = event.clientY - event.target.parentElement.offsetTop;
+
+    // Define the clicked div
+    draggedDiv = event.target;
+
+    // Attach event listeners for mouse move and mouse up events
+    document.addEventListener( 'mousemove', handleMouseMove );
+    document.addEventListener( 'mouseup', handleMouseUp );
 }
 
-// Iterate through path
-function getFiles( path ) {
+// Function to handle mouse move event
+function handleMouseMove( event ) {
     
-    // Define File
-    var file = loadFile( path );
+    // Calculate new position of the parent div based on mouse position and offset
+    const newX = event.clientX - offsetX;
+    const newY = event.clientY - offsetY;
 
-    // Remove first two (., ..) files
-    file = file.slice( 2, file.length );
-
-    // Return
-    return file;
+    // Update position of the parent div
+    draggedDiv.parentElement.style.left = newX + 'px';
+    draggedDiv.parentElement.style.top = newY + 'px';
 }
 
+// Function to handle mouse up event
+function handleMouseUp() {
+    
+    // Remove event listeners for mouse move and mouse up events
+    document.removeEventListener( 'mousemove', handleMouseMove );
+    document.removeEventListener( 'mouseup', handleMouseUp );
+}
+
+// Function to handle clicking on the resize button
+function toggleMaximize() {
+
+    // If the window is currently maximized
+    if ( parent.classList.contains( 'maximized' ) ) {
+        
+        // restore it to its original size
+        parent.classList.remove( 'maximized' );
+        
+        // Reset window size
+        parent.style.width  = parent.dataset.originalWidth;
+        parent.style.height = parent.dataset.originalHeight;
+    } 
+    else {
+        
+        // If the window is not maximized, maximize it
+        parent.classList.add(' maximized' );
+
+        // Store original window size
+        parent.dataset.originalWidth    = parent.style.width;
+        parent.dataset.originalHeight   = parent.style.height;
+
+        // Set window size to fill the screen
+        parent.style.width  = '100%';
+        parent.style.height = '100%';
+    }
+}
 /*https://cdn.jsdelivr.net/gh/KaterTot/katertot.github.io/projects/*/
